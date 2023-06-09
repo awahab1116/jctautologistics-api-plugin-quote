@@ -29,5 +29,7 @@ export default async function generateQuote(_, { input }, context) {
     quote,
   });
 
+  console.log("generated quote is ", generatedQuote);
+
   return generatedQuote;
 }

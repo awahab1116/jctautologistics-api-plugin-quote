@@ -297,6 +297,7 @@ input updateInput {
 
 type generateQuotePayload {
   isQuoteAdded: Boolean
+  quoteId: String
 }
 
 type Mutation {

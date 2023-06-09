@@ -3,6 +3,7 @@ import SimpleSchema from "simpl-schema";
 import ReactionError from "@reactioncommerce/reaction-error";
 import decodeOpaqueId from "@reactioncommerce/api-utils/decodeOpaqueId.js";
 import { decodeProductOpaqueId, decodeShopOpaqueId } from "../xforms/id.js";
+import { encodeProductOpaqueId } from "../xforms/id.js";
 import Random from "@reactioncommerce/random";
 import { sendGeneratedQuoteEmail } from "../utils/quoteEmail.js";
 import { calculateQuotePrice } from "../utils/quotePrice.js";
@@ -103,9 +104,15 @@ export default async function generateQuote(context, input) {
   //console.log("Generated Quote Email response is ", sentQuote);
 
   let isQuoteGenerated = addedQuote?.result?.ok ? true : false;
+  let quoteID = "";
+  if (isQuoteGenerated) {
+    quoteID = encodeProductOpaqueId(quoteVarient._id);
+  }
   console.log("is quote generated ", isQuoteGenerated);
+  console.log("quote encoded id is ", quoteID);
 
   return {
     isQuoteAdded: isQuoteGenerated,
+    quoteId: quoteID,
   };
 }
