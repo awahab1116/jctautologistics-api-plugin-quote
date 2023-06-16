@@ -2,6 +2,7 @@ import getPaginatedResponse from "@reactioncommerce/api-utils/graphql/getPaginat
 import wasFieldRequested from "@reactioncommerce/api-utils/graphql/wasFieldRequested.js";
 import xformQuoteBooleanFilters from "../../utils/quoteBooleanFilters.js";
 import xformQuoteSimpleFilters from "../../utils/quoteSimpleFilters.js";
+import ReactionError from "@reactioncommerce/reaction-error";
 
 export default async function getQuotes(_, args, context, info) {
   console.log("IN main function");
@@ -13,6 +14,15 @@ export default async function getQuotes(_, args, context, info) {
     vehicleFilter,
     ...connectionArgs
   } = args;
+
+  //console.log("context ", context);
+
+  if (!context?.authToken) {
+    throw new ReactionError(
+      "access-denied",
+      `Cannot get Quotes,AuthToken required`
+    );
+  }
 
   console.log("before quote boolean filter");
 

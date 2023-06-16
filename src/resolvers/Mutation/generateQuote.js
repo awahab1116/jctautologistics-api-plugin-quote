@@ -30,6 +30,7 @@ export default async function generateQuote(_, { input }, context) {
   });
 
   console.log("generated quote is ", generatedQuote);
+  console.log("check plugin added");
 
   return generatedQuote;
 }

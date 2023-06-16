@@ -21,6 +21,14 @@ enum vehicleType {
   van
 }
 
+enum loadStatusType {
+  open
+  dispatched
+  onRoute
+  delivered
+  completed
+}
+
 enum QuoteBooleanFilterName {
   isOperable
   isDiscount
@@ -124,6 +132,8 @@ type Quote implements Node {
   distance: Float!
 
   isDiscount: Boolean!
+
+  loadStatus: loadStatusType
 }
 
 type QuoteReportEdge implements NodeEdge {
@@ -277,6 +287,8 @@ input updateQuoteInput {
   serviceType: ServiceClass
 
   distance: Float
+
+  loadStatus: loadStatusType
 }
 
 input generateQuoteInput {

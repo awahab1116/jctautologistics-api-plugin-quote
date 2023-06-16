@@ -72,6 +72,7 @@ export default async function generateQuote(context, input) {
     vehicleId: newVehicle._id,
     price: quotePrice,
     isDiscount: false,
+    loadStatus: "open",
   };
   //console.log("Quote is ", quote);
   //console.log("new Quote obj is ", newQuote);
@@ -109,7 +110,7 @@ export default async function generateQuote(context, input) {
     quoteID = encodeProductOpaqueId(quoteVarient._id);
   }
   console.log("is quote generated ", isQuoteGenerated);
-  console.log("quote encoded id is ", quoteID);
+  console.log("quote encoded id is check ", quoteID);
 
   return {
     isQuoteAdded: isQuoteGenerated,

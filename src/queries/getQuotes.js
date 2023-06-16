@@ -68,5 +68,19 @@ export default async function getQuotes(
 
   console.log("Query is ", query);
 
+  console.log("context user is ", context.account);
+
+  let quotesQuery = {};
+  if (!context?.account?.adminUIShopIds) {
+    console.log("email is ", context.account.emails[0].address);
+    console.log("This is simple user");
+
+    query["quotePersonEmail"] = context.account.emails[0].address;
+  } else {
+    console.log("This is admin ", context?.account?.adminUIShopIds);
+  }
+
+  console.log("new query is ", query);
+
   return Quotes.find(query);
 }
