@@ -73,6 +73,7 @@ export default async function generateQuote(context, input) {
     price: quotePrice,
     isDiscount: false,
     loadStatus: "open",
+    isApproved: false,
   };
   //console.log("Quote is ", quote);
   //console.log("new Quote obj is ", newQuote);

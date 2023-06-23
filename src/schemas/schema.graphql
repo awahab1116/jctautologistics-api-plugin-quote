@@ -134,6 +134,8 @@ type Quote implements Node {
   isDiscount: Boolean!
 
   loadStatus: loadStatusType
+
+  isApproved: Boolean!
 }
 
 type QuoteReportEdge implements NodeEdge {
@@ -289,6 +291,8 @@ input updateQuoteInput {
   distance: Float
 
   loadStatus: loadStatusType
+
+  isApproved: Boolean
 }
 
 input generateQuoteInput {
