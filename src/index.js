@@ -21,6 +21,9 @@ export default async function register(app) {
       Vehicles: {
         name: "Vehicles",
       },
+      VehiclesNew: {
+        name: "VehiclesNew",
+      },
     },
 
     graphQL: {

@@ -13,12 +13,33 @@ enum ServiceClass {
 }
 
 enum vehicleType {
-  car
-  smallsuv
-  midsuv
-  largesuv
-  truck
-  van
+  Coupe
+  Sedan
+  Wagon_5_door
+  SUV_3_door
+  Cabriolet
+  Hatchback_3_door
+  Roadster
+  Speedster
+  Targa_grand_sport
+  Hatchback
+  Lift_back
+  Phaeton
+  Crossover
+  Sedan_2_door
+  Wagon
+  GP_hatchback_3_doors
+  Hatchback_3_doors
+  Tourist_wagon
+  Hatchback_5_door
+  SUV_crossover
+  SUV
+  Minivan
+  Limousine_Sedan_4_door
+  Micro_van
+  SUV_5_door
+  Pickup
+  Pickup_single_cabin
 }
 
 enum loadStatusType {
@@ -79,10 +100,20 @@ type Vehicle implements Node {
   vehicleModel: String!
 
   "Vehicle Desired Pick up date is"
-  vehicleDesiredPickUp: DateTime!
+  vehicleDesiredPickUp: Date!
 
   "Vehicle type is "
   type: vehicleType
+}
+
+type VehicleNew implements Node {
+  _id: ID!
+  From: String
+  To: String
+  generation: String
+  make: String
+  model: String
+  body_types: [String]
 }
 
 "A Reaction Quote"
@@ -206,7 +237,7 @@ input vehicleInput {
   vehicleModel: String!
 
   "Vehicle Desired Pick up date is"
-  vehicleDesiredPickUp: DateTime!
+  vehicleDesiredPickUp: Date!
 
   "Vehicle type is "
   type: vehicleType
@@ -223,7 +254,7 @@ input updateVehicleInput {
   vehicleModel: String
 
   "Vehicle Desired Pick up date is"
-  vehicleDesiredPickUp: DateTime
+  vehicleDesiredPickUp: Date
 
   "Vehicle type is "
   type: vehicleType
@@ -316,6 +347,10 @@ type generateQuotePayload {
   quoteId: String
 }
 
+type quoteByIDPayload {
+  quote: Quote
+}
+
 type Mutation {
   generateQuote(input: generateQuoteInput!): generateQuotePayload
   updateQuote(input: updateInput): Boolean
@@ -361,4 +396,7 @@ type Query {
     "By default, groups are sorted by when they were created, oldest first. Set this to sort by one of the other allowed fields"
     sortBy: QuoteReportSortBy = distance
   ): QuoteConnection!
+  getQuoteById(id: ID!): quoteByIDPayload
+  getVehicleMake: [String]
+  getVehicleModels(make: String): [VehicleNew]
 }

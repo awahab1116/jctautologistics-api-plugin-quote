@@ -40,6 +40,8 @@ export default async function generateQuote(context, input) {
 
   variant.price = quotePrice;
 
+  console.log("typeof ", typeof quotePrice);
+
   let quoteVarient = await context.mutations.createProductVariant(
     context.getInternalContext(),
     {
@@ -101,6 +103,7 @@ export default async function generateQuote(context, input) {
     context,
     quote,
     vehicle,
+    quotePrice,
     "temp"
   );
   //console.log("Generated Quote Email response is ", sentQuote);

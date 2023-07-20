@@ -23,26 +23,71 @@ export async function calculateQuotePrice(context, quote, vehicle) {
     isDiscount = false;
   }
 
-  if (
-    vehicle.type === "car" ||
-    vehicle.type === "smallsuv" ||
-    vehicle.type === "midsuv"
-  ) {
+  const smallVehicleTypes = [
+    "Coupe",
+    "Sedan",
+    "Wagon_5_door",
+    "SUV_3_door",
+    "Cabriolet",
+    "Hatchback_3_door",
+    "Roadster",
+    "Speedster",
+    "Targa_grand_sport",
+    "Hatchback",
+    "Lift_back",
+    "Phaeton",
+    "Crossover",
+    "Sedan_2_door",
+    "Wagon",
+    "GP Hatchback_3_doors",
+    "Hatchback_3_doors",
+    "Tourist_wagon",
+    "Hatchback_5_door",
+    "SUV_crossover",
+  ];
+
+  const largeVehicleTypes = [
+    "SUV",
+    "Minivan",
+    "Limousine_Sedan_4_door",
+    "Micro_van",
+    "SUV_5_door",
+    "Pickup",
+    "Pickup_single_cabin",
+  ];
+
+  if (smallVehicleTypes.includes(vehicle.type)) {
     priceModel = "smallvehicles";
-  } else if (
-    vehicle.type === "largesuv" ||
-    vehicle.type === "truck" ||
-    vehicle.type === "van"
-  ) {
+  } else if (largeVehicleTypes.includes(vehicle.type)) {
     priceModel = "largevehicles";
   } else {
     // Handle the case for unknown vehicle type
-
     throw new ReactionError(
       "invalid-parameter",
       "Invalid vehicle type. Please provide a valid vehicle type"
     );
   }
+
+  // if (
+  //   vehicle.type === "car" ||
+  //   vehicle.type === "smallsuv" ||
+  //   vehicle.type === "midsuv"
+  // ) {
+  //   priceModel = "smallvehicles";
+  // } else if (
+  //   vehicle.type === "largesuv" ||
+  //   vehicle.type === "truck" ||
+  //   vehicle.type === "van"
+  // ) {
+  //   priceModel = "largevehicles";
+  // } else {
+  //   // Handle the case for unknown vehicle type
+
+  //   throw new ReactionError(
+  //     "invalid-parameter",
+  //     "Invalid vehicle type. Please provide a valid vehicle type"
+  //   );
+  // }
 
   if (quote.distance >= 0 && quote.distance <= 50) {
     straightFee = priceModel === "smallvehicles" ? 275 : 325;
@@ -95,7 +140,11 @@ export async function calculateQuotePrice(context, quote, vehicle) {
     console.log("After discount price is ", finalPrice);
   }
 
-  return finalPrice;
+  console.log("FInal price typeof ", typeof finalPrice);
+
+  console.log("typeof parse float ", typeof parseFloat(finalPrice.toFixed(2)));
+
+  return parseFloat(finalPrice.toFixed(2));
 }
 
 /*

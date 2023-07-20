@@ -5,6 +5,7 @@ export async function sendGeneratedQuoteEmail(
   context,
   generatedQuote,
   addedVehicle,
+  price,
   { bodyTemplate = "accounts/generatedQuoteEmail", temp }
 ) {
   //{ bodyTemplate = "coreDefault", userId }
@@ -18,6 +19,15 @@ export async function sendGeneratedQuoteEmail(
 
   const shop = await Shops.findOne({ shopType: "primary" });
   if (!shop) throw new ReactionError("not-found", "Shop not found");
+
+  console.log("Quote data is ", generatedQuote);
+  console.log("Vehicle data is ", addedVehicle);
+
+  let shipTo = `${generatedQuote?.quoteTo?.city}, ${generatedQuote?.quoteTo?.state} ${generatedQuote?.quoteTo?.zip}`;
+  let shipFrom = `${generatedQuote?.quoteFrom?.city}, ${generatedQuote?.quoteFrom?.state} ${generatedQuote?.quoteFrom?.zip}`;
+  let vehicleData = `${addedVehicle?.vehicleMake} ${addedVehicle?.vehicleModel}`;
+
+  console.log("");
 
   const dataForEmail = {
     // Reaction Information
@@ -35,8 +45,16 @@ export async function sendGeneratedQuoteEmail(
       postal: _.get(shop, "addressBook[0].postal"),
     },
     shopName: shop.name,
-    // confirmationUrl: REACTION_IDENTITY_PUBLIC_VERIFY_EMAIL_URL.replace("TOKEN", token),
-    // confirmationUrl: otp,
+    quotePrice: price,
+    distance: generatedQuote.distance,
+    fromLocation: shipFrom,
+    toLocation: shipTo,
+    vehicle: `${addedVehicle?.vehicleYear} ${vehicleData}`,
+    availableData: addedVehicle?.vehicleDesiredPickUp,
+    serviceType: generatedQuote.serviceType,
+    isOperable: generatedQuote.isOperable,
+    transportType: generatedQuote.transportType,
+    vehicleMakeModel: vehicleData,
     userEmailAddress: "awahab1116@gmail.com",
   };
   const language = shop.language;
