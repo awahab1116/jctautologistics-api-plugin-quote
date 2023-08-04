@@ -28,8 +28,7 @@ enum vehicleType {
   Crossover
   Sedan_2_door
   Wagon
-  GP_hatchback_3_doors
-  Hatchback_3_doors
+  GP_hatchback_3_door
   Tourist_wagon
   Hatchback_5_door
   SUV_crossover
@@ -289,6 +288,8 @@ input quoteInput {
   serviceType: ServiceClass!
 
   distance: Float!
+
+  isApproved: Boolean!
 }
 
 input updateQuoteInput {

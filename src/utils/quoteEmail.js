@@ -6,11 +6,9 @@ export async function sendGeneratedQuoteEmail(
   generatedQuote,
   addedVehicle,
   price,
+  msgIntro,
   { bodyTemplate = "accounts/generatedQuoteEmail", temp }
 ) {
-  //{ bodyTemplate = "coreDefault", userId }
-  //console.log("User ID", userId);
-
   const {
     collections: { Accounts, Shops, users },
   } = context;
@@ -55,6 +53,7 @@ export async function sendGeneratedQuoteEmail(
     isOperable: generatedQuote.isOperable,
     transportType: generatedQuote.transportType,
     vehicleMakeModel: vehicleData,
+    intro: msgIntro,
     userEmailAddress: "awahab1116@gmail.com",
   };
   const language = shop.language;

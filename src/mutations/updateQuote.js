@@ -73,10 +73,45 @@ export default async function updateQuote(context, input) {
       internalProductIds
     );
 
-    console.log("update variant is ", updatedVariant);
-    console.log("published product is ", publishQuoteProduct);
-    console.log("update Quote is ", updatedQuote);
-    console.log("updated Vehicke is ", updatedvehicle);
+    if (
+      quote !== null &&
+      typeof quote === "object" &&
+      Object.prototype.hasOwnProperty.call(quote, "isApproved")
+    ) {
+      console.log("It does have isApproved key ");
+      let emailQuote = updatedQuote.value;
+      let emailVehicle = updatedvehicle.value;
+      let msgIntro = "";
+
+      let vehicleData = `${emailVehicle?.vehicleMake} ${emailVehicle?.vehicleModel}`;
+
+      if (quote.isApproved) {
+        console.log("send email quote is approved by admin");
+        msgIntro = `Your Quotation is approved by Admin.Your personalized quote price is $${quotePrice} and is ready to transport your ${vehicleData}.`;
+      } else {
+        console.log("quote approval status changed by admin to not approved");
+        msgIntro = `Your request for quotation has been rejected`;
+      }
+
+      console.log("Updated Quote value is ", emailQuote);
+      console.log("Updated Vehicle value is ", emailVehicle);
+
+      let sentQuote = await sendGeneratedQuoteEmail(
+        context,
+        emailQuote,
+        emailVehicle,
+        quotePrice,
+        msgIntro,
+        "temp"
+      );
+    } else {
+      console.log("not have approved key");
+    }
+
+    // console.log("update variant is ", updatedVariant);
+    // console.log("published product is ", publishQuoteProduct);
+    //console.log("update Quote is ", updatedQuote);
+    // console.log("updated Vehicke is ", updatedvehicle);
 
     return true;
   } catch (err) {

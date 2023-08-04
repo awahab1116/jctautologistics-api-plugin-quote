@@ -75,7 +75,13 @@ export default async function generateQuote(context, input) {
     price: quotePrice,
     isDiscount: false,
     loadStatus: "open",
-    isApproved: false,
+    /*
+      for load status
+      dispatched
+      onRoute
+      delivered
+      completed
+    */
   };
   //console.log("Quote is ", quote);
   //console.log("new Quote obj is ", newQuote);
@@ -99,11 +105,18 @@ export default async function generateQuote(context, input) {
     publishQuoteProduct
   );
 
+  let vehicleData = `${newVehicle?.vehicleMake} ${newVehicle?.vehicleModel}`;
+
+  let msgIntro = newQuote?.isApproved
+    ? `Your personalized quote price is $${quotePrice} and is ready to transport your ${vehicleData}.`
+    : `Your personalized quote price is $${quotePrice} and will sent you an email,if your quote is approved by admin.`;
+
   let sentQuote = await sendGeneratedQuoteEmail(
     context,
     quote,
     vehicle,
     quotePrice,
+    msgIntro,
     "temp"
   );
   //console.log("Generated Quote Email response is ", sentQuote);

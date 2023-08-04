@@ -38,9 +38,11 @@ export default async function getVehicleMake(context, { start } = {}) {
   const { Product } = simpleSchemas;
   const { Quotes, Vehicles, VehiclesNew } = collections;
 
-  // const csvFilePath =
-  //   "/home/awahab1116/autotransport/reaction-backend/custom-packages/jctautologistics-api-plugin-quote/src/queries/final_testing.csv";
-  console.log("In query inner function ");
+  const csvFilePath =
+    "/home/awahab1116/autotransport/reaction-backend/custom-packages/jctautologistics-api-plugin-quote/src/queries/final_testing.csv";
+
+  //   "/home/awahab1116/autotransport/reaction-backend/custom-packages/jctautologistics-api-plugin-quote/src/queries/testing_jct_data.csv";
+  // console.log("In query inner function ");
 
   // try {
   //   // Connect to MongoDB
