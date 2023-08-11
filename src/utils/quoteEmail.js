@@ -54,7 +54,7 @@ export async function sendGeneratedQuoteEmail(
     transportType: generatedQuote.transportType,
     vehicleMakeModel: vehicleData,
     intro: msgIntro,
-    userEmailAddress: "awahab1116@gmail.com",
+    userEmailAddress: "test@gmail.com",
   };
   const language = shop.language;
 
@@ -63,6 +63,6 @@ export async function sendGeneratedQuoteEmail(
     fromShop: shop,
     templateName: bodyTemplate,
     language,
-    to: "awahab1116@gmail.com",
+    to: generatedQuote.quotePersonEmail,
   });
 }
