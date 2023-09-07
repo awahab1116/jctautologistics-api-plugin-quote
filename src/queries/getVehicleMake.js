@@ -39,26 +39,30 @@ export default async function getVehicleMake(context, { start } = {}) {
   const { Quotes, Vehicles, VehiclesNew } = collections;
 
   const csvFilePath =
-    "/home/awahab1116/autotransport/reaction-backend/custom-packages/jctautologistics-api-plugin-quote/src/queries/final_testing.csv";
+    "/home/awahab1116/autotransport/reaction-backend/custom-packages/jctautologistics-api-plugin-quote/src/queries/testing_jct_data_final.csv";
 
   //   "/home/awahab1116/autotransport/reaction-backend/custom-packages/jctautologistics-api-plugin-quote/src/queries/testing_jct_data.csv";
   // console.log("In query inner function ");
 
   // try {
-  //   // Connect to MongoDB
-
-  //   // Read CSV file
-
+  //   const insertPromises = [];
   //   fs.createReadStream(csvFilePath)
   //     .pipe(csv())
   //     .on("data", async (data) => {
   //       data.body_types = parseArray(data.body_types);
-  //       console.log("Here in insert ", data); // Insert each row of data into the collection
-  //       await VehiclesNew.insertOne(data);
+  //       console.log("Here in insert ", data);
+  //       insertPromises.push(VehiclesNew.insertOne(data)); // Use your collection to insert data
   //     })
-  //     .on("end", () => {
-  //       console.log("Data inserted successfully!");
-  //       // Close the MongoDB connection
+  //     .on("end", async () => {
+  //       try {
+  //         await Promise.all(insertPromises); // Wait for all inserts to complete
+  //         console.log("Data inserted successfully!");
+  //       } catch (err) {
+  //         console.error("Error inserting data: ", err);
+  //       } finally {
+  //         // Close the MongoDB connection
+  //         // await client.close();
+  //       }
   //     });
   // } catch (err) {
   //   console.error("Error: ", err);
@@ -66,8 +70,16 @@ export default async function getVehicleMake(context, { start } = {}) {
 
   const uniqueValues = await VehiclesNew.distinct("make");
 
-  // Print the unique values
-  console.log(uniqueValues);
+  // const countVehicle = await VehiclesNew.countDocuments();
+  // console.log("count Vehicles are ", countVehicle);
+
+  // const uniqueBodyTypes = await VehiclesNew.distinct("body_types");
+  // console.log("Body types are ", uniqueBodyTypes);
+
+  // // Print the unique values
+  // console.log(uniqueValues);
 
   return uniqueValues;
+
+  // return [];
 }

@@ -13,32 +13,19 @@ enum ServiceClass {
 }
 
 enum vehicleType {
-  Coupe
-  Sedan
-  Wagon_5_door
-  SUV_3_door
   Cabriolet
-  Hatchback_3_door
-  Roadster
-  Speedster
-  Targa_grand_sport
-  Hatchback
-  Lift_back
-  Phaeton
+  Convertible
+  Coupe
   Crossover
-  Sedan_2_door
-  Wagon
-  GP_hatchback_3_door
-  Tourist_wagon
-  Hatchback_5_door
-  SUV_crossover
-  SUV
-  Minivan
-  Limousine_Sedan_4_door
-  Micro_van
-  SUV_5_door
+  Grand_tourer
+  Hatchback
   Pickup
-  Pickup_single_cabin
+  Roadster
+  SUV
+  Sedan
+  Sports_Car
+  Station_Wagon
+  Van
 }
 
 enum loadStatusType {
@@ -166,6 +153,8 @@ type Quote implements Node {
   loadStatus: loadStatusType
 
   isApproved: Boolean!
+
+  assignedTo: String
 }
 
 type QuoteReportEdge implements NodeEdge {
@@ -325,6 +314,8 @@ input updateQuoteInput {
   loadStatus: loadStatusType
 
   isApproved: Boolean
+
+  assignedTo: String
 }
 
 input generateQuoteInput {
@@ -359,6 +350,45 @@ type Mutation {
 
 type Query {
   getQuotes(
+    # branches: String
+    # startTime: DateTime
+    # endTime: DateTime
+    # riderID: String
+    # OrderID: String
+    # fromDate: DateTime
+    # toDate: DateTime
+    # deliveryTime: Float
+    # searchQuery: String
+
+    "Additional filters to apply"
+    booleanFilters: [QuoteBooleanFilter]
+
+    simpleFilters: [simpleQuoteFilter]
+
+    "Price Range Filter"
+    floatRange: [floatRangeValue]
+
+    vehicleFilter: [vehicleFilterValue]
+
+    "Optional text search query"
+    searchQuery: String
+
+    "Return only results that come after this cursor. Use this with `first` to specify the number of results to return."
+    after: ConnectionCursor
+    "Return only results that come before this cursor. Use this with `last` to specify the number of results to return."
+    before: ConnectionCursor
+    "Return at most this many results. This parameter may be used with either `after` or `offset` parameters."
+    first: ConnectionLimitInt
+    "Return at most this many results. This parameter may be used with the `before` parameter."
+    last: ConnectionLimitInt
+    "Return only results that come after the Nth result. This parameter may be used with the `first` parameter."
+    offset: Int
+    "Return results sorted in this order"
+    sortOrder: SortOrder = desc
+    "By default, groups are sorted by when they were created, oldest first. Set this to sort by one of the other allowed fields"
+    sortBy: QuoteReportSortBy = distance
+  ): QuoteConnection!
+  quotes(
     # branches: String
     # startTime: DateTime
     # endTime: DateTime

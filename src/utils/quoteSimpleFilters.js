@@ -1,4 +1,5 @@
 const QUOTE_PLUGIN_SIMPLE_FILTERS = ["transportType", "serviceType"];
+const QUOTE_PLUGIN_LOCATION_FILTERS_FILTERS = ["quoteTo", "quoteFrom"];
 
 /**
  *
@@ -30,7 +31,7 @@ export default async function xformQuoteSimpleFilters(context, simpleFilters) {
       // Ensure that documents where the filter field is
       // not set are also returned.
       if (value === false) value = { $ne: true };
-      mongoFilters.push({ [`${filter.name}.state`]: value });
+      mongoFilters.push({ [`${filter.name}.city`]: value });
     }
   }
 
@@ -51,6 +52,6 @@ export default async function xformQuoteSimpleFilters(context, simpleFilters) {
   if (mongoFilters.length === 0) return {};
   // console.log("mongo Filters ", mongoFilters)
   return {
-    $or: mongoFilters,
+    $and: mongoFilters,
   };
 }

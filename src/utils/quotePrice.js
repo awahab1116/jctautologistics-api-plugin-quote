@@ -24,36 +24,22 @@ export async function calculateQuotePrice(context, quote, vehicle) {
   }
 
   const smallVehicleTypes = [
-    "Coupe",
-    "Sedan",
-    "Wagon_5_door",
-    "SUV_3_door",
     "Cabriolet",
-    "Hatchback_3_door",
-    "Roadster",
-    "Speedster",
-    "Targa_grand_sport",
+    "Convertible",
+    "Coupe",
     "Hatchback",
-    "Lift_back",
-    "Phaeton",
-    "Crossover",
-    "Sedan_2_door",
-    "Wagon",
-    "GP Hatchback_3_doors",
-    "Hatchback_3_doors",
-    "Tourist_wagon",
-    "Hatchback_5_door",
-    "SUV_crossover",
+    "Roadster",
+    "Sedan",
+    "Sports_Car",
+    "Station_Wagon",
   ];
 
   const largeVehicleTypes = [
-    "SUV",
-    "Minivan",
-    "Limousine_Sedan_4_door",
-    "Micro_van",
-    "SUV_5_door",
+    "Crossover",
+    "Grand Tourer",
     "Pickup",
-    "Pickup_single_cabin",
+    "SUV",
+    "Van",
   ];
 
   if (smallVehicleTypes.includes(vehicle.type)) {
