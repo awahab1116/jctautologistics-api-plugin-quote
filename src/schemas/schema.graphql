@@ -65,6 +65,12 @@ enum vehicleFilterName {
   vehicleMake
 }
 
+type AssignedAccount {
+  name: String
+  email: String
+  accountId: String
+}
+
 type Locataion {
   state: String
   city: String
@@ -154,7 +160,11 @@ type Quote implements Node {
 
   isApproved: Boolean!
 
-  assignedTo: String
+  assignedTo: AssignedAccount
+
+  checkoutSessionId: String
+
+  paymentStatus: Boolean
 }
 
 type QuoteReportEdge implements NodeEdge {
@@ -281,6 +291,12 @@ input quoteInput {
   isApproved: Boolean!
 }
 
+input AssignedAccountInput {
+  name: String
+  email: String
+  accountId: String
+}
+
 input updateQuoteInput {
   "Quote generated person name"
   quotePersonName: String
@@ -315,7 +331,7 @@ input updateQuoteInput {
 
   isApproved: Boolean
 
-  assignedTo: String
+  assignedTo: AssignedAccountInput
 }
 
 input generateQuoteInput {

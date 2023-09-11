@@ -71,6 +71,7 @@ export default async function generateQuote(context, input) {
     _id: quoteVarient._id,
     createdAt,
     ...quote,
+    paymentStatus: false,
     vehicleId: newVehicle._id,
     price: quotePrice,
     isDiscount: false,
@@ -84,7 +85,7 @@ export default async function generateQuote(context, input) {
     */
   };
   //console.log("Quote is ", quote);
-  //console.log("new Quote obj is ", newQuote);
+  console.log("new Quote obj is ", newQuote);
 
   let addedQuote = await Quotes.insertOne(newQuote);
 

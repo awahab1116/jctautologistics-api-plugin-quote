@@ -69,13 +69,20 @@ export default async function getQuotes(
   console.log("Query is ", query);
 
   console.log("context user is ", context.account);
+  console.log("user role is ", context.account.userRole);
 
   let quotesQuery = {};
-  if (!context?.account?.adminUIShopIds) {
+  if (
+    !context?.account?.adminUIShopIds &&
+    context?.account?.userRole == "user"
+  ) {
     console.log("email is ", context.account.emails[0].address);
     console.log("This is simple user");
 
     query["quotePersonEmail"] = context.account.emails[0].address;
+  } else if (context?.account?.userRole == "admin") {
+    console.log("in admin check quotes");
+    query["assignedTo.email"] = context.account.emails[0].address;
   } else {
     console.log("This is admin ", context?.account?.adminUIShopIds);
   }
