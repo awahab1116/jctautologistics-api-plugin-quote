@@ -1,4 +1,9 @@
-const QUOTE_PLUGIN_BOOLEAN_FILTERS = ["isOperable", "isDiscount"];
+const QUOTE_PLUGIN_BOOLEAN_FILTERS = [
+  "isOperable",
+  "isDiscount",
+  "isApproved",
+  "stripePaymentStatus",
+];
 
 /**
  *

@@ -26,6 +26,7 @@ export default async function getQuotes(
     ...quoteSimpleFilters,
   };
 
+  console.log("1293810923 query is ", query);
   if (checkMinMaxExists(floatRange, "minPrice", "maxPrice")) {
     console.log("Both min and max price exists");
 

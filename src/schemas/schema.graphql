@@ -39,6 +39,8 @@ enum loadStatusType {
 enum QuoteBooleanFilterName {
   isOperable
   isDiscount
+  stripePaymentStatus
+  isApproved
 }
 
 enum simpleQuoteFilterNames {
@@ -164,7 +166,7 @@ type Quote implements Node {
 
   checkoutSessionId: String
 
-  paymentStatus: Boolean
+  stripePaymentStatus: Boolean
 }
 
 type QuoteReportEdge implements NodeEdge {

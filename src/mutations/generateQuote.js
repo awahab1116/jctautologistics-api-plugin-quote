@@ -71,7 +71,7 @@ export default async function generateQuote(context, input) {
     _id: quoteVarient._id,
     createdAt,
     ...quote,
-    paymentStatus: false,
+    stripePaymentStatus: false,
     vehicleId: newVehicle._id,
     price: quotePrice,
     isDiscount: false,
