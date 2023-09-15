@@ -1,4 +1,9 @@
-const VEHICLE_PLUGIN_FILTERS = ["vehicleYear", "vehicleMake", "vehicleModel"];
+const VEHICLE_PLUGIN_FILTERS = [
+  "vehicleYear",
+  "vehicleMake",
+  "vehicleModel",
+  "type",
+];
 
 export default function vehicleFilterQuery(data) {
   const newObj = {};

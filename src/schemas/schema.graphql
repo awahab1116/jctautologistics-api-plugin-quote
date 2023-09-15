@@ -65,6 +65,7 @@ enum vehicleFilterName {
   vehicleYear
   vehicleModel
   vehicleMake
+  type
 }
 
 type AssignedAccount {
@@ -448,4 +449,5 @@ type Query {
   getQuoteById(id: ID!): quoteByIDPayload
   getVehicleMake: [String]
   getVehicleModels(make: String): [VehicleNew]
+  vehicleTypes: [String]
 }
