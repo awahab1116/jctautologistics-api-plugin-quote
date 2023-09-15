@@ -26,6 +26,33 @@ export default async function getQuotes(
     ...quoteSimpleFilters,
   };
 
+  const selector = {};
+
+  if (searchQuery) {
+    query.$or = [
+      {
+        "quoteTo.city": {
+          $regex: new RegExp(searchQuery, "i"),
+        },
+      },
+      {
+        "quoteTo.state": {
+          $regex: new RegExp(searchQuery, "i"),
+        },
+      },
+      {
+        "quoteFrom.city": {
+          $regex: new RegExp(searchQuery, "i"),
+        },
+      },
+      {
+        "quoteFrom.state": {
+          $regex: new RegExp(searchQuery, "i"),
+        },
+      },
+    ];
+  }
+
   console.log("1293810923 query is ", query);
   if (checkMinMaxExists(floatRange, "minPrice", "maxPrice")) {
     console.log("Both min and max price exists");

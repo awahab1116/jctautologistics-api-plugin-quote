@@ -377,7 +377,7 @@ type Query {
     # fromDate: DateTime
     # toDate: DateTime
     # deliveryTime: Float
-    # searchQuery: String
+    searchQuery: String
 
     "Additional filters to apply"
     booleanFilters: [QuoteBooleanFilter]
