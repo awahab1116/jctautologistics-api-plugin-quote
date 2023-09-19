@@ -4,6 +4,8 @@ import getVehicleMake from "./getVehicleMake.js";
 import getVehicleModels from "./getVehicleModels.js";
 import quotes from "./quotes.js";
 import vehicleTypes from "./vehicleTypes.js";
+import quoteStats from "./quoteStats.js";
+import quoteGraphStats from "./quoteGraphStats.js";
 
 export default {
   getQuotes,
@@ -12,4 +14,6 @@ export default {
   getVehicleModels,
   quotes,
   vehicleTypes,
+  quoteStats,
+  quoteGraphStats,
 };

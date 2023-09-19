@@ -76,6 +76,7 @@ export default async function generateQuote(context, input) {
     price: quotePrice,
     isDiscount: false,
     loadStatus: "open",
+    updatedAt: new Date(),
     /*
       for load status
       dispatched
