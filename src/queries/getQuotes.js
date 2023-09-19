@@ -55,18 +55,19 @@ export default async function getQuotes(
 
   console.log("1293810923 query is ", query);
   if (checkMinMaxExists(floatRange, "minPrice", "maxPrice")) {
-    console.log("Both min and max price exists");
+    console.log("Both min and max price exist");
 
     const minPrice = floatRange.find((item) => item.name === "minPrice").value;
     const maxPrice = floatRange.find((item) => item.name === "maxPrice").value;
-    // const searchQuery1 = `${minPrice} ${maxPrice}`;
 
-    query[`price`] = { $gte: parseFloat(minPrice) };
-    query[`price`] = { $lte: parseFloat(maxPrice) };
+    query[`price`] = {
+      $gte: parseFloat(minPrice),
+      $lte: parseFloat(maxPrice),
+    };
   }
 
   if (checkMinMaxExists(floatRange, "minDistance", "maxDistance")) {
-    console.log("Both min and max distance exists");
+    console.log("Both min and max distance exist");
 
     const minDistance = floatRange.find(
       (item) => item.name === "minDistance"
@@ -74,10 +75,11 @@ export default async function getQuotes(
     const maxDistance = floatRange.find(
       (item) => item.name === "maxDistance"
     ).value;
-    // const searchQuery1 = `${minPrice} ${maxPrice}`;
 
-    query[`distance`] = { $gte: parseFloat(minDistance) };
-    query[`distance`] = { $lte: parseFloat(maxDistance) };
+    query[`distance`] = {
+      $gte: parseFloat(minDistance),
+      $lte: parseFloat(maxDistance),
+    };
   }
 
   console.log("vehicle filter input is ", vehicleFilter);
