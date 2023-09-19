@@ -171,6 +171,10 @@ type Quote implements Node {
   checkoutSessionId: String
 
   stripePaymentStatus: Boolean
+
+  shipDate: Date
+
+  deliveryDate: Date
 }
 
 type QuoteReportEdge implements NodeEdge {
@@ -369,6 +373,10 @@ input updateQuoteInput {
   isApproved: Boolean
 
   assignedTo: AssignedAccountInput
+
+  shipDate: Date
+
+  deliveryDate: Date
 }
 
 input generateQuoteInput {
