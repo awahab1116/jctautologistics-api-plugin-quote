@@ -3,6 +3,7 @@ const QUOTE_PLUGIN_BOOLEAN_FILTERS = [
   "isDiscount",
   "isApproved",
   "stripePaymentStatus",
+  "isCompleted",
 ];
 
 /**

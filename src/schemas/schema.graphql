@@ -41,6 +41,7 @@ enum QuoteBooleanFilterName {
   isDiscount
   stripePaymentStatus
   isApproved
+  isCompleted
 }
 
 enum simpleQuoteFilterNames {
@@ -177,6 +178,8 @@ type Quote implements Node {
   shipDate: Date
 
   deliveryDate: Date
+
+  isCompleted: Boolean
 }
 
 type QuoteReportEdge implements NodeEdge {
@@ -379,6 +382,8 @@ input updateQuoteInput {
   shipDate: Date
 
   deliveryDate: Date
+
+  isCompleted: Boolean
 }
 
 input generateQuoteInput {
