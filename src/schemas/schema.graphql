@@ -170,6 +170,8 @@ type Quote implements Node {
 
   checkoutSessionId: String
 
+  paymentIntentId: String
+
   stripePaymentStatus: Boolean
 
   shipDate: Date
