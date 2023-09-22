@@ -173,8 +173,14 @@ export default async function getQuotes(
   }
 
   console.log("new query is ", query);
+  let newObj = {};
+  if (query.length) {
+    newObj = {
+      $and: query,
+    };
+  }
 
-  return Quotes.find({
-    $and: query,
-  });
+  console.log("newobj is ", newObj);
+
+  return Quotes.find(newObj);
 }

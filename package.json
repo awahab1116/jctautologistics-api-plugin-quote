@@ -2,7 +2,7 @@
   "name": "@reactioncommerce/jctautologistics-api-plugin-quote",
   "description": "Boilerplate Example plugin for the Reaction API",
   "label": "Jctautologistics Api Plugin Quote",
-  "version": "1.0.0-development",
+  "version": "2.0.1-development",
   "main": "index.js",
   "type": "module",
   "engines": {
