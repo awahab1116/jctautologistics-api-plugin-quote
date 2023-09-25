@@ -180,6 +180,8 @@ type Quote implements Node {
   deliveryDate: Date
 
   isCompleted: Boolean
+
+  quoteOrderId: String
 }
 
 type QuoteReportEdge implements NodeEdge {

@@ -7,6 +7,7 @@ import { encodeProductOpaqueId } from "../xforms/id.js";
 import Random from "@reactioncommerce/random";
 import { sendGeneratedQuoteEmail } from "../utils/quoteEmail.js";
 import { calculateQuotePrice } from "../utils/quotePrice.js";
+import { orderIdGenerator } from "../utils/orderIdGenerator.js";
 // import cleanProductInput from "../utils/cleanProductInput.js";
 
 // const inputSchema = new SimpleSchema({
@@ -62,6 +63,9 @@ export default async function generateQuote(context, input) {
 
   console.log("new Vehicle obj is ", newVehicle);
 
+  let oId = await orderIdGenerator(8);
+  console.log("Random order id is ", oId);
+
   let addedVehicle = await Vehicles.insertOne(newVehicle);
 
   console.log("Added Vehicle is ", addedVehicle);
@@ -69,6 +73,7 @@ export default async function generateQuote(context, input) {
   const createdAt = new Date();
   const newQuote = {
     _id: quoteVarient._id,
+    quoteOrderId: oId,
     createdAt,
     ...quote,
     stripePaymentStatus: false,
