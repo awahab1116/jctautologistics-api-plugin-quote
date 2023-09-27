@@ -182,6 +182,8 @@ type Quote implements Node {
   isCompleted: Boolean
 
   quoteOrderId: String
+
+  customerNote: String
 }
 
 type QuoteReportEdge implements NodeEdge {
@@ -337,6 +339,8 @@ input quoteInput {
   distance: Float!
 
   isApproved: Boolean!
+
+  customerNote: String
 }
 
 input AssignedAccountInput {
@@ -386,6 +390,8 @@ input updateQuoteInput {
   deliveryDate: Date
 
   isCompleted: Boolean
+
+  customerNote: String
 }
 
 input generateQuoteInput {

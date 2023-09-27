@@ -82,6 +82,7 @@ export default async function generateQuote(context, input) {
     isDiscount: false,
     loadStatus: "open",
     updatedAt: new Date(),
+    isCompleted: false,
     /*
       for load status
       dispatched
