@@ -36,7 +36,7 @@ export async function calculateQuotePrice(context, quote, vehicle) {
 
   const largeVehicleTypes = [
     "Crossover",
-    "Grand Tourer",
+    "Grand_tourer",
     "Pickup",
     "SUV",
     "Van",
