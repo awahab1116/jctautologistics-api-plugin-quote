@@ -92,7 +92,7 @@ export async function sendGeneratedQuoteEmail(
   };
   const language = shop.language;
 
-  console.log("Available date is ", addedVehicle?.vehicleDesiredPickUp);
+  console.log("Approved Status ", generatedQuote?.isApproved);
 
   return context.mutations.sendEmail(context, {
     data: dataForEmail,

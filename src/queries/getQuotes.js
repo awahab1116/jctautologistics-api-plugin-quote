@@ -90,12 +90,27 @@ export default async function getQuotes(
           },
         },
         {
+          "quoteTo.zip": {
+            $regex: new RegExp(searchQuery, "i"),
+          },
+        },
+        {
           "quoteFrom.city": {
             $regex: new RegExp(searchQuery, "i"),
           },
         },
         {
           "quoteFrom.state": {
+            $regex: new RegExp(searchQuery, "i"),
+          },
+        },
+        {
+          "quoteFrom.zip": {
+            $regex: new RegExp(searchQuery, "i"),
+          },
+        },
+        {
+          quoteOrderId: {
             $regex: new RegExp(searchQuery, "i"),
           },
         },
