@@ -1,6 +1,13 @@
 import _ from "lodash";
 import ReactionError from "@reactioncommerce/reaction-error";
 
+function constructAddressString(city, state, zip) {
+  const addressString =
+    (city ? city + ", " : "") + (state ? state + " " : "") + (zip ? zip : "");
+
+  return addressString;
+}
+
 export async function sendGeneratedQuoteEmail(
   context,
   generatedQuote,
@@ -21,9 +28,30 @@ export async function sendGeneratedQuoteEmail(
   console.log("Quote data is ", generatedQuote);
   console.log("Vehicle data is ", addedVehicle);
 
-  let shipTo = `${generatedQuote?.quoteTo?.city}, ${generatedQuote?.quoteTo?.state} ${generatedQuote?.quoteTo?.zip}`;
-  let shipFrom = `${generatedQuote?.quoteFrom?.city}, ${generatedQuote?.quoteFrom?.state} ${generatedQuote?.quoteFrom?.zip}`;
+  let shipTo = constructAddressString(
+    generatedQuote?.quoteTo?.city,
+    generatedQuote?.quoteTo?.state,
+    generatedQuote?.quoteTo?.zip
+  );
+  let shipFrom = constructAddressString(
+    generatedQuote?.quoteFrom?.city,
+    generatedQuote?.quoteFrom?.state,
+    generatedQuote?.quoteFrom?.zip
+  );
   let vehicleData = `${addedVehicle?.vehicleMake} ${addedVehicle?.vehicleModel}`;
+  const usLocale = "en-US";
+
+  const options = {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  };
+
+  const usFormattedDate = addedVehicle?.vehicleDesiredPickUp.toLocaleString(
+    usLocale,
+    options
+  );
 
   console.log("");
 
@@ -43,20 +71,28 @@ export async function sendGeneratedQuoteEmail(
       postal: _.get(shop, "addressBook[0].postal"),
     },
     shopName: shop.name,
-    quotePrice: price,
+    orderId: generatedQuote.quoteOrderId,
+    quotePrice: price ? `$${price}` : "",
     distance: generatedQuote.distance,
     fromLocation: shipFrom,
     toLocation: shipTo,
     vehicle: `${addedVehicle?.vehicleYear} ${vehicleData}`,
-    availableData: addedVehicle?.vehicleDesiredPickUp,
+    availableData: usFormattedDate,
     serviceType: generatedQuote.serviceType,
-    isOperable: generatedQuote.isOperable,
+    approvalStatus: generatedQuote.isApproved
+      ? "Your quote is approved"
+      : "Your quote is not approved by Admin",
+    isOperable: generatedQuote.isOperable
+      ? "Vehicle is operational"
+      : "Vehicle is not operational",
     transportType: generatedQuote.transportType,
     vehicleMakeModel: vehicleData,
     intro: msgIntro,
     userEmailAddress: "test@gmail.com",
   };
   const language = shop.language;
+
+  console.log("Available date is ", addedVehicle?.vehicleDesiredPickUp);
 
   return context.mutations.sendEmail(context, {
     data: dataForEmail,

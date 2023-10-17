@@ -121,7 +121,7 @@ export default async function generateQuote(context, input) {
 
   let sentQuote = await sendGeneratedQuoteEmail(
     context,
-    quote,
+    newQuote,
     vehicle,
     quotePrice,
     msgIntro,
