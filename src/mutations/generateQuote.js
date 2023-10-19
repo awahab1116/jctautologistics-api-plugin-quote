@@ -39,7 +39,7 @@ export default async function generateQuote(context, input) {
 
   console.log("Variant is ", variant);
 
-  variant.price = quotePrice;
+  variant.price = quotePrice?.price;
 
   console.log("typeof ", typeof quotePrice);
 
@@ -78,7 +78,8 @@ export default async function generateQuote(context, input) {
     ...quote,
     stripePaymentStatus: false,
     vehicleId: newVehicle._id,
-    price: quotePrice,
+    price: quotePrice?.price,
+    discountedPrice: quotePrice?.discountedPrice,
     isDiscount: false,
     loadStatus: "open",
     updatedAt: new Date(),
@@ -114,16 +115,20 @@ export default async function generateQuote(context, input) {
   );
 
   let vehicleData = `${newVehicle?.vehicleMake} ${newVehicle?.vehicleModel}`;
+  let emailPrice =
+    quotePrice.price === quotePrice.discountedPrice
+      ? quotePrice.price
+      : quotePrice.discountedPrice;
 
   let msgIntro = newQuote?.isApproved
-    ? `Your personalized quote price is $${quotePrice} and is ready to transport your ${vehicleData}.`
-    : `Your personalized quote price is $${quotePrice} and will sent you an email,if your quote is approved by admin.`;
+    ? `Your personalized quote price is $${emailPrice} and is ready to transport your ${vehicleData}.`
+    : `Your personalized quote price is $${emailPrice} and will sent you an email,if your quote is approved by admin.`;
 
   let sentQuote = await sendGeneratedQuoteEmail(
     context,
     newQuote,
     vehicle,
-    quotePrice,
+    emailPrice,
     msgIntro,
     "temp"
   );

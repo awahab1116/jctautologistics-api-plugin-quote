@@ -37,7 +37,7 @@ export default async function updateQuote(context, input) {
 
     let quotePrice = await calculateQuotePrice(context, quote, vehicle);
     let variant = {};
-    variant.price = quotePrice;
+    variant.price = quotePrice?.price;
 
     console.log("vehicle Id is ", data.vehicleId);
     let vehicleId = data.vehicleId;
@@ -47,7 +47,8 @@ export default async function updateQuote(context, input) {
       { new: true }
     );
 
-    quote.price = quotePrice;
+    quote.price = quotePrice?.price;
+    quote.discountedPrice = quotePrice?.discountedPrice;
     updatedQuote = await Quotes.findOneAndUpdate(
       { _id: id },
       { $set: quote },
@@ -84,10 +85,14 @@ export default async function updateQuote(context, input) {
       let msgIntro = "";
 
       let vehicleData = `${emailVehicle?.vehicleMake} ${emailVehicle?.vehicleModel}`;
+      let emailPrice =
+        quotePrice.price === quotePrice.discountedPrice
+          ? quotePrice.price
+          : quotePrice.discountedPrice;
 
       if (quote.isApproved) {
         console.log("send email quote is approved by admin");
-        msgIntro = `Your Quotation is approved by Admin.Your personalized quote price is $${quotePrice} and is ready to transport your ${vehicleData}.`;
+        msgIntro = `Your Quotation is approved by Admin.Your personalized quote price is $${emailPrice} and is ready to transport your ${vehicleData}.`;
       } else {
         console.log("quote approval status changed by admin to not approved");
         msgIntro = `Your request for quotation has been rejected`;
@@ -100,7 +105,7 @@ export default async function updateQuote(context, input) {
         context,
         emailQuote,
         emailVehicle,
-        quotePrice,
+        emailPrice,
         msgIntro,
         "temp"
       );

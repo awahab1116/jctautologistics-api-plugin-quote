@@ -54,27 +54,6 @@ export async function calculateQuotePrice(context, quote, vehicle) {
     );
   }
 
-  // if (
-  //   vehicle.type === "car" ||
-  //   vehicle.type === "smallsuv" ||
-  //   vehicle.type === "midsuv"
-  // ) {
-  //   priceModel = "smallvehicles";
-  // } else if (
-  //   vehicle.type === "largesuv" ||
-  //   vehicle.type === "truck" ||
-  //   vehicle.type === "van"
-  // ) {
-  //   priceModel = "largevehicles";
-  // } else {
-  //   // Handle the case for unknown vehicle type
-
-  //   throw new ReactionError(
-  //     "invalid-parameter",
-  //     "Invalid vehicle type. Please provide a valid vehicle type"
-  //   );
-  // }
-
   if (quote.distance >= 0 && quote.distance <= 50) {
     straightFee = priceModel === "smallvehicles" ? 275 : 325;
   } else if (quote.distance >= 51 && quote.distance <= 100) {
@@ -118,19 +97,24 @@ export async function calculateQuotePrice(context, quote, vehicle) {
   }
 
   console.log("Before discount price ", finalPrice);
+
+  let discPrice = finalPrice;
   //to be changed discount value
   if (isDiscount) {
     let discountPercentage = 5;
     const discountAmount = (finalPrice * discountPercentage) / 100;
-    finalPrice = finalPrice - discountAmount;
-    console.log("After discount price is ", finalPrice);
+    discPrice = finalPrice - discountAmount;
+    console.log("After discount price is ", discPrice);
   }
 
-  console.log("FInal price typeof ", typeof finalPrice);
+  console.log("Final price typeof ", typeof finalPrice);
 
   console.log("typeof parse float ", typeof parseFloat(finalPrice.toFixed(2)));
 
-  return parseFloat(finalPrice.toFixed(2));
+  return {
+    price: parseFloat(finalPrice.toFixed(2)),
+    discountedPrice: parseFloat(discPrice.toFixed(2)),
+  };
 }
 
 /*

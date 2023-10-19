@@ -150,23 +150,6 @@ export default async function getQuotes(
     });
   }
 
-  console.log("Query is ", query);
-  // let filters = vehicleFilterQuery(vehicleFilter);
-  // console.log("Vehicle Filters are ", filters);
-
-  // // Construct the final query object based on the provided filters
-
-  // if (filters) {
-  //   query[`vehicleId`] = {
-  //     $in: await Vehicles.distinct("_id", filters),
-  //   };
-  // }
-
-  console.log("Query is ", query);
-
-  console.log("context user is ", context.account);
-  console.log("user role is ", context.account.userRole);
-
   let quotesQuery = {};
   if (
     !context?.account?.adminUIShopIds &&

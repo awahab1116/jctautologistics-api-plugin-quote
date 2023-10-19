@@ -155,6 +155,8 @@ type Quote implements Node {
 
   price: Float!
 
+  discountedPrice: Float!
+
   insuranceIncluded: Boolean!
 
   serviceType: ServiceClass!
@@ -421,14 +423,6 @@ type Mutation {
 
 type Query {
   getQuotes(
-    # branches: String
-    # startTime: DateTime
-    # endTime: DateTime
-    # riderID: String
-    # OrderID: String
-    # fromDate: DateTime
-    # toDate: DateTime
-    # deliveryTime: Float
     searchQuery: String
 
     "Additional filters to apply"
