@@ -111,9 +111,12 @@ export async function calculateQuotePrice(context, quote, vehicle) {
 
   console.log("typeof parse float ", typeof parseFloat(finalPrice.toFixed(2)));
 
+  console.log("rounded final price is ", Math.round(finalPrice));
+  console.log("rounded discounted price is ", Math.round(discPrice));
+
   return {
-    price: parseFloat(finalPrice.toFixed(2)),
-    discountedPrice: parseFloat(discPrice.toFixed(2)),
+    price: Math.round(finalPrice),
+    discountedPrice: Math.round(discPrice),
   };
 }
 
