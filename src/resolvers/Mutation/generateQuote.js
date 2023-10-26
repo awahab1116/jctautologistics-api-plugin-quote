@@ -20,6 +20,10 @@ export default async function generateQuote(_, { input }, context) {
     attributeLabel: "Red,Large",
   };
 
+  if (quote.quotePersonEmail) {
+    quote.quotePersonEmail = quote.quotePersonEmail.toLowerCase();
+  }
+
   console.log("In started quote shown user");
   const generatedQuote = await context.mutations.generateQuote(context, {
     shopId,
