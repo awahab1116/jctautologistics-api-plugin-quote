@@ -188,6 +188,10 @@ type Quote implements Node {
   customerNote: String
 }
 
+type OrderNumber {
+  lastOrderNumber: Int
+}
+
 type QuoteReportEdge implements NodeEdge {
   "The cursor that represents this node in the paginated results"
   cursor: ConnectionCursor!
@@ -498,4 +502,5 @@ type Query {
   vehicleTypes: [String]
   quoteStats: quoteStatsPayload
   quoteGraphStats(year: Int): [quoteGraphPayload]
+  # LastOrderNumber: OrderNumber
 }

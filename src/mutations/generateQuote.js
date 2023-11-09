@@ -8,6 +8,7 @@ import Random from "@reactioncommerce/random";
 import { sendGeneratedQuoteEmail } from "../utils/quoteEmail.js";
 import { calculateQuotePrice } from "../utils/quotePrice.js";
 import { orderIdGenerator } from "../utils/orderIdGenerator.js";
+import getNextOrderNumber from "../utils/autoIncrementOrderNumber.js";
 // import cleanProductInput from "../utils/cleanProductInput.js";
 
 // const inputSchema = new SimpleSchema({
@@ -31,6 +32,13 @@ export default async function generateQuote(context, input) {
   const { Products, Quotes, Vehicles } = collections;
   //const { product: productInput, shopId, shouldCreateFirstVariant = true } = input;
   const { shopId, serviceProductId, variant, quote, vehicle } = input;
+
+  let autoIncrementedOrderId = await getNextOrderNumber(context);
+  console.log("increment value is ", autoIncrementedOrderId);
+
+  if (!autoIncrementedOrderId) {
+    throw new ReactionError("server-error", "Something went wrong");
+  }
 
   let quotePrice = await calculateQuotePrice(context, quote, vehicle);
   console.log("Calculated price is ", quotePrice);
@@ -63,8 +71,8 @@ export default async function generateQuote(context, input) {
 
   console.log("new Vehicle obj is ", newVehicle);
 
-  let oId = await orderIdGenerator(8);
-  console.log("Random order id is ", oId);
+  // let oId = await orderIdGenerator(8);
+  // console.log("Random order id is ", oId);
 
   let addedVehicle = await Vehicles.insertOne(newVehicle);
 
@@ -73,7 +81,7 @@ export default async function generateQuote(context, input) {
   const createdAt = new Date();
   const newQuote = {
     _id: quoteVarient._id,
-    quoteOrderId: oId,
+    quoteOrderId: autoIncrementedOrderId,
     createdAt,
     ...quote,
     stripePaymentStatus: false,
